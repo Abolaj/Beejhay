@@ -60,4 +60,31 @@ This project implements a scalable web application using AWS services. The appli
 - High availability with Amazon Aurora.
 - Global distribution with CloudFront.
 
-By leveraging these AWS services, this architecture ensures scalability, security, and high availability for the web application.
+## Interaction Flow
+User Access:
+Users access the application via a domain name managed by Amazon Route 53.
+Traffic is directed to Amazon CloudFront for content delivery.
+
+Frontend Delivery:
+CloudFront serves the static website content hosted in Amazon S3.
+CloudFront caches static assets for low-latency access.
+
+User Authentication:
+Users register and log in through the frontend, which interacts with Amazon Cognito.
+Cognito manages user pools and handles authentication flows.
+
+API Requests:
+Authenticated users interact with the backend through RESTful APIs exposed by Amazon API Gateway.
+API Gateway routes requests to corresponding AWS Lambda functions.
+
+Backend Logic:
+AWS Lambda functions handle core backend logic, including user management, image upload, and retrieval.
+Lambda functions interact with Amazon RDS (Aurora) for user data and metadata storage.
+
+Image Storage:
+Uploaded images are stored in a separate Amazon S3 bucket.
+Image URLs are stored in the database and referenced by users.
+
+Security:
+AWS WAF and AWS Shield protect the application from web exploits and DDoS attacks.
+IAM roles and policies ensure secure access to AWS resources.
